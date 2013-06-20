@@ -442,7 +442,7 @@ class myPoller:
         #and self._configParse.get('MyInfo', 'host_id'):
         #    self._myInfo_hostID = self._configParse.get('MyInfo', 'host_id')
         #    self._logger.info("Config : myInfo_host_id = " + self._myInfo_hostID)
-        self._myInfo_hostID = get_mac()
+        self._myInfo_hostID = str(get_mac())
 	self._logger.info("Config : myInfo_host_id = " + self._myInfo_hostID)
 
         # getMyInfo - Description
