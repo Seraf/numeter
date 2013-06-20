@@ -10,7 +10,7 @@ import socket
 import re
 import logging
 import sys
-
+from uuid import getnode as get_mac
 
 import pprint # Debug (dumper)
 
@@ -438,10 +438,13 @@ class myPoller:
             self._myInfo_name = self._configParse.get('MyInfo', 'name')
             self._logger.info("Config : myInfo_name = " + self._myInfo_name)
         # getMyInfo - hostID
-        if self._configParse.has_option('MyInfo', 'host_id') \
-        and self._configParse.get('MyInfo', 'host_id'):
-            self._myInfo_hostID = self._configParse.get('MyInfo', 'host_id')
-            self._logger.info("Config : myInfo_host_id = " + self._myInfo_hostID)
+        #if self._configParse.has_option('MyInfo', 'host_id') \
+        #and self._configParse.get('MyInfo', 'host_id'):
+        #    self._myInfo_hostID = self._configParse.get('MyInfo', 'host_id')
+        #    self._logger.info("Config : myInfo_host_id = " + self._myInfo_hostID)
+        self._myInfo_hostID = get_mac()
+	self._logger.info("Config : myInfo_host_id = " + self._myInfo_hostID)
+
         # getMyInfo - Description
         if self._configParse.has_option('MyInfo', 'description') \
         and self._configParse.get('MyInfo', 'description'):
