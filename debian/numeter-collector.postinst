@@ -18,6 +18,7 @@ case "$1" in
             rm /etc/cron.d/numeter-collector-cron
         fi
     fi
+    update-rc.d numeter-collector defaults
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

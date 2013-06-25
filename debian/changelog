@@ -1,4 +1,10 @@
-numeter (0.2.3.10) numeter-wheezy; urgency=low
+numeter (0.2.3.10-1+wheezy) numeter-wheezy; urgency=low
+
+  * run update-rc.d when installing
+
+ -- Martin Bureau <martin.bureau@enovance.com>  Thu, 20 Jun 2013 13:25:23 +0200
+
+numeter (0.2.3.10-0+wheezy) numeter-wheezy; urgency=low
 
   * Fixe init scripts for daemon
   * Improve nagios and munin plugins
