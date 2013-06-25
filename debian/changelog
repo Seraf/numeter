@@ -1,4 +1,4 @@
-numeter (0.2.3.10-0+wheezy) numeter-wheezy; urgency=low
+numeter (0.2.3.10) numeter-wheezy; urgency=low
 
   * Fixe init scripts for daemon
   * Improve nagios and munin plugins
