@@ -35,4 +35,6 @@ case "$1" in
     ;;
 esac
 
+update-rc.d numeter-redis-poller defaults
+
 exit 0
