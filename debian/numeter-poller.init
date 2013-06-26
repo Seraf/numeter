@@ -6,7 +6,7 @@
 #
 ### BEGIN INIT INFO
 # Provides: numeter-poller
-# Required-Start:
+# Required-Start: numeter-redis-poller
 # Should-Start:
 # Required-Stop:
 # Should-Stop:

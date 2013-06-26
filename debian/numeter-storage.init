@@ -6,7 +6,7 @@
 #
 ### BEGIN INIT INFO
 # Provides: numeter-storage
-# Required-Start:
+# Required-Start: redis-server
 # Should-Start:
 # Required-Stop:
 # Should-Stop:
