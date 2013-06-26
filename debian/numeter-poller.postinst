@@ -23,7 +23,7 @@ case "$1" in
         sed -i "s/@HOST_ID@/$genID/g" /etc/numeter/numeter_poller.cfg
     fi
     #update-rc.d numeter-poller defaults
-    update-rc.d numeter-redis-poller defaults
+    #update-rc.d numeter-redis-poller defaults
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
