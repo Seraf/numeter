@@ -28,7 +28,7 @@ case "$1" in
     #    ln -s /etc/uwsgi/apps-available/numeter-storage-uwsgi.ini /etc/uwsgi/apps-enabled/
     #    invoke-rc.d uwsgi restart
     #fi
-    update-rc.d numeter-storage defaults
+    #update-rc.d numeter-storage defaults
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

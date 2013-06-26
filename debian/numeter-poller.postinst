@@ -22,7 +22,7 @@ case "$1" in
         genID=$(date +%s)-$(echo $(date +%s)-$(hostname) | md5sum | cut -d" " -f1)
         sed -i "s/@HOST_ID@/$genID/g" /etc/numeter/numeter_poller.cfg
     fi
-    update-rc.d numeter-poller defaults
+    #update-rc.d numeter-poller defaults
     update-rc.d numeter-redis-poller defaults
     ;;
 
