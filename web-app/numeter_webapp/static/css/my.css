@@ -69,3 +69,44 @@ div[id="body"] {
   width: 100%; 
   height: 320px;
 }
+
+.rickshaw_legend {
+  background: inherit;
+}
+
+.detail .x_label {
+     display: none;
+ }
+
+.rickshaw_graph .x_tick .title {
+    bottom: -25px;
+    left: -20px;
+}
+
+.legend_container, .chart_display, .y_axis_container, .chart_minimap {
+  display: inline-block;
+}
+
+.chart_display,.legend_container, .y_axis_container {
+  vertical-align: top;
+}
+
+.y_axis_container {
+  width: 50px;
+}
+
+.legend_container {
+  width: 100px;  
+  padding: 0px;
+}
+
+.chart_minimap {
+  margin-left: -5px;
+}
+
+.chart_display {
+  margin-left: -5px;
+  margin-bottom: 10px;
+}
+
+
