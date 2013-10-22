@@ -131,7 +131,7 @@
       stroke: true,
       preserve: true,
       series: series
-    });    
+    });
 
     chart.renderer.unstack = true;
     chart.render();
@@ -184,8 +184,36 @@
   // GET SIMPLE GRAPH
   numeter.get_simple_graph = function (url, into_id) {
     numeter.preview_request = $.getJSON(url, function (data) {
-     
-      numeter.graphs.push(g);
+      var element, chart, xaxis, yaxis;
+      element = document.getElementById(into_id);
+      chart = new Rickshaw.Graph({
+        element: element,
+        width: parseInt(window.getComputedStyle(element).width),
+        height: parseInt(window.getComputedStyle(element).height) - 15,
+        renderer: 'multi',
+        stroke: true,
+        preserve: true,
+        series: parseData(data).series
+      });
+      chart.renderer.unstack = true;
+      element.removeChild(element.childNodes[0]);
+      chart.render();
+
+      xaxis = new Rickshaw.Graph.Axis.Time({
+        graph: chart,
+        ticksTreatment: 'glow',
+        timeFixture: new Rickshaw.Fixtures.Time()
+      });
+
+      xaxis.render();
+
+      var yaxis = new Rickshaw.Graph.Axis.Y( {
+        graph: chart,
+        tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+        ticksTreatment: 'glow'
+      });
+
+      yaxis.render(); 
     });
   };
 
@@ -193,7 +221,7 @@
   numeter.get_graph = function (url, into, res) {    
     $.getJSON(url + '?res=' + res, function (data) {
       var g, series, result;
-      result = parseData(data);      
+      result = parseData(data);
       g = createRickshaw(into, result.series);      
       g.url = url;
       g.datas = result.datas;
