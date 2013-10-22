@@ -15,7 +15,8 @@
   opacity = 0.65;
 
   function parseData(rawData) {
-    var series, datas, elt, data, color, date, infos, palette;
+    var palette, elt, color, series, infos, datas;
+    series = [];
     palette = [
       [66, 61, 79],
       [74, 104, 96],
@@ -29,35 +30,52 @@
       [73, 29, 55],
       [47, 37, 74]
     ];
-    series = [];
-    datas = rawData.datas;
-    infos = rawData.infos;
 
+    infos = rawData.infos;
     for (elt in infos) {
       if (infos.hasOwnProperty(elt)) {
         color = palette.shift();
         series.push({
           name: infos[elt].label,
-          data: [],
           renderer: renderer[infos[elt].draw] || "line",
+          data: [],
           color: 'rgba(' + color.join() + ', ' + opacity + ')'
         });
       }
     }
+    datas = series.map(function(elt){
+      return elt.data;
+    });
+    fillDatas(rawData.datas, datas);
 
-    while ((data = datas.shift()) !== undef) {
-      date = null;
-      series.map(function(elt) {
-        if (!date) {
-          date = data.shift();
-        }
-        return elt.data.push({
-          x: date,
-          y: data.shift()
-        });
-      });
+    return {series: series, datas: datas};
+  }
+
+  function fillDatas(rawDatas, datas) {
+    var data, date, i, length, value;
+    length = datas.length;
+
+    for (i = 0; i < length; i = i + 1){
+      datas[i].length = 0;
     }
-    return series;
+
+    while ((data = rawDatas.shift()) !== undef) {
+      date = null;
+      i = 0;
+
+      while ((value = data.shift()) !== undef) {
+        if (!date) {
+          date = value;
+        } else {
+          datas[i].push({
+            x: date,
+            y: value
+          });
+          i = i + 1;
+        }
+      }  
+    }
+    return datas;
   }
 
   function createRickshaw(into, series) {
@@ -113,7 +131,7 @@
       stroke: true,
       preserve: true,
       series: series
-    });
+    });    
 
     chart.renderer.unstack = true;
     chart.render();
@@ -159,7 +177,6 @@
 
     yaxis.render();
 
-
     return chart;
   }
 
@@ -173,21 +190,22 @@
   };
 
   // GET ADVANCED GRAPH
-  numeter.get_graph = function (url, into, res) {
-    
+  numeter.get_graph = function (url, into, res) {    
     $.getJSON(url + '?res=' + res, function (data) {
-      var g, series;      
-      series = parseData(data);
-      g = createRickshaw(into, series);
+      var g, series, result;
+      result = parseData(data);      
+      g = createRickshaw(into, result.series);      
       g.url = url;
+      g.datas = result.datas;
       numeter.graphs.push(g);
     });
   };
 
   // UPDATE GRAPH
   numeter.update_graph = function (graph, res) {
-    $.getJSON(graph.url + '?res=' + res, function (data) {
-
+    $.getJSON(graph.url + '?res=' + res, function (rawData) {      
+      fillDatas(rawData.datas, graph.datas);
+      graph.update();
     });
   };
 
