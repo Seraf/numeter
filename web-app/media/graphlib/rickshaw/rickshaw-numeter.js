@@ -34,7 +34,12 @@
     infos = rawData.infos;
     for (elt in infos) {
       if (infos.hasOwnProperty(elt)) {
-        color = palette.shift();
+        color = palette.shift() || 
+          [
+            Math.floor(Math.random()*255),
+            Math.floor(Math.random()*255),
+            Math.floor(Math.random()*255)
+          ];
         series.push({
           name: infos[elt].label,
           renderer: renderer[infos[elt].draw] || "line",
@@ -89,6 +94,7 @@
 
     legendC = document.createElement('div');
     legendC.className = 'legend_container';
+    legendC.style.overflow = "auto";
 
     chartC = document.createElement('div');
     chartC.className = 'chart_container';
